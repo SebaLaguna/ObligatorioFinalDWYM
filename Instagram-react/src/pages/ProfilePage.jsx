@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 
 const ProfilePage = () => {
   const [userData, setUserData] = useState({ username: '', email: '', profilePicture: '' });
@@ -8,24 +7,39 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/profile', {
+        const response = await fetch('http://localhost:3001/profile', {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
-        setUserData(response.data);
+
+        if (!response.ok) {
+          throw new Error('Error al cargar el perfil');
+        }
+
+        const data = await response.json();
+        setUserData(data);
       } catch (error) {
         console.error('Error al cargar el perfil', error);
       }
     };
+
     fetchUserData();
   }, []);
 
   const handleUpdate = async () => {
     try {
-      await axios.put(
-        'http://localhost:3001/profile',
-        { username: newUsername },
-        { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
-      );
+      const response = await fetch('http://localhost:3001/profile', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify({ username: newUsername }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al actualizar el perfil');
+      }
+
       setUserData((prevData) => ({ ...prevData, username: newUsername }));
     } catch (error) {
       console.error('Error al actualizar el perfil', error);

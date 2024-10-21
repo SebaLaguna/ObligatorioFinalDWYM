@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 
 const FeedPage = () => {
   const [posts, setPosts] = useState([]);
@@ -7,14 +6,23 @@ const FeedPage = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/feed', {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        const response = await fetch('http://localhost:3001/feed', {
+          headers: { 
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
         });
-        setPosts(response.data);
+
+        if (!response.ok) {
+          throw new Error('Error al cargar el feed');
+        }
+
+        const data = await response.json();
+        setPosts(data);
       } catch (error) {
         console.error('Error al cargar el feed', error);
       }
     };
+
     fetchPosts();
   }, []);
 

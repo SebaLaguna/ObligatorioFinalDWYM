@@ -1,18 +1,29 @@
 import { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3001/register', { username, email, password });
-      history.push('/login');
+      const response = await fetch('http://localhost:3001/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, email, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al registrar');
+      }
+
+      // Redirige al login tras el registro exitoso
+      navigate('/login');
     } catch (error) {
       console.error('Error al registrar', error);
     }
