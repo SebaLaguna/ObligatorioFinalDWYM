@@ -10,7 +10,7 @@ const RegisterPage = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3001/register', {
+      const response = await fetch('http://localhost:3001/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -23,11 +23,15 @@ const RegisterPage = () => {
       }
 
       // Redirige al login tras el registro exitoso
-      navigate('/login');
+      navigate('/');
     } catch (error) {
       console.error('Error al registrar', error);
     }
   };
+  const handleLoginRedirect = () => {
+    navigate('/'); // Redirige a la página de registro
+  };
+
 
   return (
     <div>
@@ -56,6 +60,7 @@ const RegisterPage = () => {
         />
         <button type="submit">Register</button>
       </form>
+      <p>¿Ya tienes una cuenta? <button onClick={handleLoginRedirect}>Inicia sesión</button></p>
     </div>
   );
 };

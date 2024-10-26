@@ -12,7 +12,7 @@ const LoginPage = () => {
     setError(null); // Resetea el error antes de cada intento
 
     try {
-      const response = await fetch('http://localhost:3001/login', {
+      const response = await fetch('http://localhost:3001/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -37,6 +37,10 @@ const LoginPage = () => {
     }
   };
 
+  const handleRegisterRedirect = () => {
+    navigate('/register'); // Redirige a la página de registro
+  };
+
   return (
     <div>
       <h2>Login</h2>
@@ -58,6 +62,7 @@ const LoginPage = () => {
         />
         <button type="submit">Login</button>
       </form>
+      <p>¿No tienes una cuenta? <button onClick={handleRegisterRedirect}>Regístrate aquí</button></p>
     </div>
   );
 };
