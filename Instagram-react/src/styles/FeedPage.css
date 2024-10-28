@@ -1,59 +1,97 @@
+
+.feed-page {
+  display: flex;
+}
+
+.sidebar {
+  width: 200px;
+  height: 100vh;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2rem;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.sidebar-button {
+  width: 80%;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: #f0f2f5;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-button:hover {
+  background-color: #e0e4e8;
+}
+
 .feed-container {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .posts-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-  }
-  
-  .post-card {
-    background-color: white;
-    border: 1px solid #dbdbdb;
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  
-  .post-header {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-  }
-  
-  .profile-picture {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 10px;
-  }
-  
-  .username {
-    font-weight: bold;
-  }
-  
-  .post-image-container {
-    width: 100%;
-    height: 300px;
-    overflow: hidden;
-  }
-  
-  .post-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .post-description {
-    padding: 10px;
-  }
-  
-  .post-description p {
-    margin: 0;
-    font-size: 14px;
-  }
-  
+  width: calc(100% - 200px); 
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  margin-left: 200px;
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.post-card {
+  background-color: white;
+  border: 1px solid #dbdbdb;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+  display: inline-block; /* Permite que el tamaño se adapte */
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.profile-picture {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 15px;
+}
+
+.username {
+  font-weight: bold;
+}
+
+.post-image-container {
+  display: inline-block; /* Para que el contenedor se adapte a la imagen */
+  width: auto;
+}
+
+.post-image {
+  width: 100%;
+  object-fit: cover;
+}
+
+.post-description {
+  padding: 10px;
+}
+
+.post-description p {
+  margin: 0;
+  font-size: 16px;
+}

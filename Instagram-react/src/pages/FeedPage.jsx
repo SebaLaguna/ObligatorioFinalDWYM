@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import "../styles/FeedPage.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const FeedPage = () => {
   const [posts, setPosts] = useState([]);
 
-  // Función para cargar los posts
   const fetchPosts = async () => {
     try {
       const response = await fetch("http://localhost:3001/api/posts/feed", {
@@ -26,11 +26,24 @@ const FeedPage = () => {
 
   useEffect(() => {
     fetchPosts();
-  }, []); // Solo ejecutar al montar el componente
+  }, []);
 
   return (
     <div className="feed-container">
-      <h2>Feed</h2>
+      <div className="sidebar">
+        <button className="sidebar-button">
+          <i className="fas fa-home"></i> Inicio
+        </button>
+        <button className="sidebar-button">
+          <i className="fas fa-bell"></i> Notificaciones
+        </button>
+        <button className="sidebar-button">
+          <i className="fas fa-plus-square"></i> Crear
+        </button>
+        <button className="sidebar-button">
+          <i className="fas fa-user"></i> Perfil
+        </button>
+      </div>
       <div className="posts-grid">
         {posts.map((post) => (
           <div key={post._id} className="post-card">
@@ -53,7 +66,9 @@ const FeedPage = () => {
               <p>{post.caption}</p>
             </div>
             <div className="post-comments">
-              <p>{post.comments[0]} ID  </p>
+              {post.comments.map((comments) => (
+                <p key={comments}>{comments.content}</p>
+              ))}
               <p>{post.comments.length} comentarios</p>
             </div>
             <div className="post-likes">
