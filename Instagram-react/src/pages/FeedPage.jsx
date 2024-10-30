@@ -5,6 +5,8 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 const FeedPage = () => {
   const [posts, setPosts] = useState([]);
 
+
+
   const fetchPosts = async () => {
     try {
       const response = await fetch("http://localhost:3001/api/posts/feed", {
