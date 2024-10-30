@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import "../styles/Comment.css";
 
-const Comment = () => {
+const Comment = ({id}) => {
 
     const [comment, setComment] = useState([]);
 
     const fetchComment = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/posts/feed", {
+        const response = await fetch(`http://localhost:3001/api/comments/:${id}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -18,13 +18,20 @@ const Comment = () => {
         }
   
         const data = await response.json();
-        setPosts(data);
+        setComment(data);
       } catch (error) {
-        console.error("Error al cargar el feed", error);
+        console.error("Error al cargar los comentarios", error);
       }
     };
   
     useEffect(() => {
-      fetchPosts();
+      fetchComment();
     }, []);
+
+    return(
+      <div>
+        {comment && <p className=".comment-text">{comment.content}</p>}
+      </div>
+    );
 }
+export default Comment;

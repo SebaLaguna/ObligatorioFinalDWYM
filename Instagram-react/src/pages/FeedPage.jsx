@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "../styles/FeedPage.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import Comment from "../components/Comment";
 
 const FeedPage = () => {
   const [posts, setPosts] = useState([]);
@@ -67,7 +68,7 @@ const FeedPage = () => {
             </div>
             <div className="post-comments">
               {post.comments.map((comments) => (
-                <p key={comments}>{comments.content}</p>
+                <p key={comments}><Comment id={comments} /></p>
               ))}
               <p>{post.comments.length} comentarios</p>
             </div>
