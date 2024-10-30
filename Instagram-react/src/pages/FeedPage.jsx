@@ -67,10 +67,10 @@ const FeedPage = () => {
               <p>{post.caption}</p>
             </div>
             <div className="post-comments">
-              {post.comments.map((comments) => (
-                <p key={comments}><Comment id={comments} /></p>
-              ))}
               <p>{post.comments.length} comentarios</p>
+              {post.comments.map((comments) => (
+                <div key={comments}><Comment id={comments} /></div>
+              ))}
             </div>
             <div className="post-likes">
               <p>{post.likes.length}</p>
