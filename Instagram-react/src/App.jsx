@@ -9,15 +9,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Ruta para el login */}
         <Route path="/" element={<LoginPage />} />
-        
-        {/* Otras rutas */}
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/feed" element={<FeedPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-
-        {/* Ruta para página 404 */}
+        <Route path="/profile/:id" element={<ProfilePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
