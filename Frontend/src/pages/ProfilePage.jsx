@@ -8,7 +8,6 @@ const ProfilePage = () => {
   const [userData, setUserData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Función para obtener los datos del perfil y los posts del usuario
   const fetchUserProfile = async () => {
     try {
       const response = await fetch(
@@ -105,7 +104,6 @@ const ProfilePage = () => {
           {userData.posts.map((post) => (
             <div key={post._id} className="post-card">
               <img src={post.imageUrl} alt="Post" className="post-image" />
-              <p>{post.caption}</p>
             </div>
           ))}
         </div>
