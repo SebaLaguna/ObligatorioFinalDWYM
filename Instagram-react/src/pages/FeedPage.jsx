@@ -5,6 +5,8 @@ import Comment from "../components/Comment";
 
 const FeedPage = () => {
   const [posts, setPosts] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedPost, setSelectedPost] = useState(null);
 
   const fetchPosts = async () => {
     try {
@@ -27,6 +29,24 @@ const FeedPage = () => {
 
   useEffect(() => {
     fetchPosts();
+  }, []);
+
+  const openModal = (post) => {
+    setSelectedPost(post);
+    setShowModal(true);
+    document.body.style.overflow = "hidden"; 
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedPost(null);
+    document.body.style.overflow = "auto"; 
+  };
+
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = "auto";
+    };
   }, []);
 
   return (
@@ -61,16 +81,11 @@ const FeedPage = () => {
                 src={post.imageUrl || "/default-post.png"}
                 alt="Post"
                 className="post-image"
+                onClick={() => openModal(post)}
               />
             </div>
             <div className="post-caption">
               <p>{post.caption}</p>
-            </div>
-            <div className="post-comments">
-              <p>{post.comments.length} comentarios</p>
-              {post.comments.map((comments) => (
-                <div key={comments}><Comment id={comments} /></div>
-              ))}
             </div>
             <div className="post-likes">
               <p>{post.likes.length}</p>
@@ -79,8 +94,35 @@ const FeedPage = () => {
           </div>
         ))}
       </div>
+      
+      {showModal && selectedPost && (
+        <div className="modal" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <span className="close-button" onClick={closeModal}>&times;</span>
+            <img
+              src={selectedPost.imageUrl}
+              alt="Post"
+              className="modal-post-image"
+            />
+            <div className="modal-caption">
+              <p>{selectedPost.caption}</p>
+            </div>
+            <div className="modal-comments">
+              <p>{selectedPost.comments.length} comentarios</p>
+              {selectedPost.comments.map((comment) => (
+                <Comment key={comment} id={comment} />
+              ))}
+            </div>
+            <div className="modal-likes">
+              <p>{selectedPost.likes.length} likes</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 export default FeedPage;
+
+
