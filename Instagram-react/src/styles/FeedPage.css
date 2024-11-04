@@ -1,6 +1,8 @@
-
+/* General */
 .feed-page {
   display: flex;
+  justify-content: center;
+  font-family: Arial, sans-serif;
 }
 
 .sidebar {
@@ -9,7 +11,7 @@
   background-color: #fff;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   padding-top: 2rem;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   position: fixed;
@@ -21,33 +23,47 @@
   width: 80%;
   padding: 1rem;
   margin-bottom: 1rem;
-  background-color: #f0f2f5;
+  background-color: transparent;
+  color: #333;
   border: none;
   border-radius: 8px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s;
   display: flex;
   align-items: center;
-  justify-content: center;
+  transition: color 0.3s;
+}
+
+.sidebar-profile-picture {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.sidebar-button i {
+  margin-right: 8px;
 }
 
 .sidebar-button:hover {
-  background-color: #e0e4e8;
+  color: #555;
 }
 
-.feed-container {
-  width: calc(100% - 200px); 
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 20px;
+
+.feed {
+  flex-grow: 1; 
   margin-left: 200px;
+  display: flex;
+  justify-content: center; 
+  padding-top: 20px;
 }
 
 .posts-grid {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
+  max-width: 600px; 
+  width: 100%;
 }
 
 .post-card {
@@ -56,7 +72,7 @@
   border-radius: 8px;
   overflow: hidden;
   width: 100%;
-  display: inline-block; /* Permite que el tamaño se adapte */
+  max-width: 500px;
 }
 
 .post-header {
@@ -75,11 +91,11 @@
 
 .username {
   font-weight: bold;
+  font-size: 14px;
 }
 
 .post-image-container {
-  display: inline-block; /* Para que el contenedor se adapte a la imagen */
-  width: auto;
+  width: 100%;
 }
 
 .post-image {
@@ -87,13 +103,21 @@
   object-fit: cover;
 }
 
-.post-description {
+.post-caption {
   padding: 10px;
+  font-size: 14px;
 }
 
-.post-description p {
-  margin: 0;
-  font-size: 16px;
+.post-likes, .post-comments {
+  padding: 0 10px 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+.post-time {
+  font-size: 12px;
+  color: #999;
+  margin-left: 10px;
 }
 
 .modal {

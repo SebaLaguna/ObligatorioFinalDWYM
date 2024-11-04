@@ -28,6 +28,7 @@ const LoginPage = () => {
 
       const data = await response.json();
       localStorage.setItem('token', data.token);
+      localStorage.setItem('userId', data._id);
       
       // Redirige al feed tras iniciar sesión
       navigate('/feed');
