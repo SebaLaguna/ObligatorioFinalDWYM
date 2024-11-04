@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/FeedPage.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import Comment from "../components/Comment";
+import Publicacion from "./Publicacion";
+import Modal from "../components/Modal"
 
 const timeSince = (date) => {
   const seconds = Math.floor((new Date() - new Date(date)) / 1000);
@@ -26,6 +27,8 @@ const timeSince = (date) => {
 
 const FeedPage = () => {
   const [posts, setPosts] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedPost, setSelectedPost] = useState(null);
   const [userProfile, setUserProfile] = useState(null); // Para almacenar los datos del usuario logueado
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
@@ -72,6 +75,24 @@ const FeedPage = () => {
   useEffect(() => {
     fetchPosts();
     fetchUserProfile(); // Obtener los datos del usuario logueado
+  }, []);
+
+  const openModal = (post) => {
+    setSelectedPost(post);
+    setShowModal(true);
+    document.body.style.overflow = "hidden"; 
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedPost(null);
+    document.body.style.overflow = "auto"; 
+  };
+
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = "auto";
+    };
   }, []);
 
   const handleProfileClick = () => {
@@ -125,18 +146,11 @@ const FeedPage = () => {
                 src={post.imageUrl || "/default-post.png"}
                 alt="Post"
                 className="post-image"
+                onClick={() => openModal(post)}
               />
             </div>
             <div className="post-caption">
               <p>{post.caption}</p>
-            </div>
-            <div className="post-comments">
-              <p>{post.comments.length} comentarios</p>
-              {post.comments.map((comments) => (
-                <div key={comments}>
-                  <Comment id={comments} />
-                </div>
-              ))}
             </div>
             <div className="post-likes">
               <p>{post.likes.length} likes</p>
@@ -144,9 +158,14 @@ const FeedPage = () => {
           </div>
         ))}
       </div>
-      </div>
+     {showModal && selectedPost && (
+      <Modal children={<Publicacion selectedPost={selectedPost} />} onClose={closeModal} />)}
+
+    </div>
     </div>
   );
 };
 
 export default FeedPage;
+
+
