@@ -1,6 +1,6 @@
 import "../styles/FeedPage.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import Comment from "../components/Comment";
+import Comment from "./Comment";
 
 const Publicacion = ({selectedPost}) => {
     return(

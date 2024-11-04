@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/FeedPage.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import Publicacion from "./Publicacion";
+import Publicacion from "../components/Publicacion";
 import Modal from "../components/Modal"
 
 const timeSince = (date) => {
