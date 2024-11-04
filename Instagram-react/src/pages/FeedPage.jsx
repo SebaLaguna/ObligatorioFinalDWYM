@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/FeedPage.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import Comment from "../components/Comment";
+import Publicacion from "./Publicacion";
+import Modal from "../components/Modal"
 
 const timeSince = (date) => {
   const seconds = Math.floor((new Date() - new Date(date)) / 1000);
@@ -157,31 +158,9 @@ const FeedPage = () => {
           </div>
         ))}
       </div>
-      
-      {showModal && selectedPost && (
-        <div className="modal" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <span className="close-button" onClick={closeModal}>&times;</span>
-            <img
-              src={selectedPost.imageUrl}
-              alt="Post"
-              className="modal-post-image"
-            />
-            <div className="modal-caption">
-              <p>{selectedPost.caption}</p>
-            </div>
-            <div className="modal-comments">
-              <p>{selectedPost.comments.length} comentarios</p>
-              {selectedPost.comments.map((comment) => (
-                <Comment key={comment} id={comment} />
-              ))}
-            </div>
-            <div className="modal-likes">
-              <p>{selectedPost.likes.length} likes</p>
-            </div>
-          </div>
-        </div>
-      )}
+     {showModal && selectedPost && (
+      <Modal children={<Publicacion selectedPost={selectedPost} />} onClose={closeModal} />)}
+
     </div>
     </div>
   );
