@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "../styles/ProfilePage.css";
 import Modal from "../components/Modal";
+import { BASE_URL,PROFILE_URL,EDIT_PROFILE_URL,NAVIGATE_FEED } from "../Routes";
+
 
 const ProfilePage = () => {
   const { id } = useParams();
@@ -11,7 +13,7 @@ const ProfilePage = () => {
   const fetchUserProfile = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3001/api/user/profile/${id}`,
+        BASE_URL+PROFILE_URL+`/${id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -37,7 +39,7 @@ const ProfilePage = () => {
   const updateUserProfile = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3001/api/user/profile/edit`,
+        BASE_URL+EDIT_PROFILE_URL,
         {
           method: "PUT",
           headers: {
@@ -76,7 +78,7 @@ const ProfilePage = () => {
       <div className="sidebar">
         <button
           className="sidebar-button"
-          onClick={() => (window.location.href = "/feed")}
+          onClick={() => (window.location.href = NAVIGATE_FEED)}
         >
           <i className="fas fa-home"></i> Inicio
         </button>

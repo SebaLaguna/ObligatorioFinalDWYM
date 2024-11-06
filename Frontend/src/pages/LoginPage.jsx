@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
+import { LOGIN_URL,BASE_URL,NAVIGATE_FEED,NAVIGATE_REGISTER } from '../Routes';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -12,7 +13,7 @@ const LoginPage = () => {
     setError(null); // Resetea el error antes de cada intento
 
     try {
-      const response = await fetch('http://localhost:3001/api/auth/login', {
+      const response = await fetch(BASE_URL+LOGIN_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -31,7 +32,7 @@ const LoginPage = () => {
       localStorage.setItem('userId', data._id);
       
       // Redirige al feed tras iniciar sesión
-      navigate('/feed');
+      navigate(NAVIGATE_FEED);
     } catch (error) {
       setError(error.message); // Guarda el mensaje de error para mostrarlo
       console.error('Error al iniciar sesión', error);
@@ -39,7 +40,7 @@ const LoginPage = () => {
   };
 
   const handleRegisterRedirect = () => {
-    navigate('/register'); // Redirige a la página de registro
+    navigate(NAVIGATE_REGISTER); // Redirige a la página de registro
   };
 
   return (

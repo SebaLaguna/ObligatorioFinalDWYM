@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL,REGISTER_URL,NAVIGATE_LOGIN } from '../Routes';
 
 const RegisterPage = () => {
   const [username, setUsername] = useState('');
@@ -10,7 +11,7 @@ const RegisterPage = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3001/api/auth/register', {
+      const response = await fetch(BASE_URL+REGISTER_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -29,7 +30,7 @@ const RegisterPage = () => {
     }
   };
   const handleLoginRedirect = () => {
-    navigate('/'); // Redirige a la página de registro
+    navigate(NAVIGATE_LOGIN); // Redirige a la página de registro
   };
 
 
