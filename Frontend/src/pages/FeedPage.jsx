@@ -30,7 +30,7 @@ const FeedPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
   const [userProfile, setUserProfile] = useState(null);
-  const [commentText, setCommentText] = useState("");
+  const [comments, setComments] = useState({}); // Estado para los comentarios de cada post
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
 
@@ -82,7 +82,6 @@ const FeedPage = () => {
     if (selectedPost) {
       setShowModal(true);
     }
-
   }, [selectedPost]);
 
   const openModal = (post) => {
@@ -102,20 +101,19 @@ const FeedPage = () => {
     }
   };
 
+  const handleCommentChange = (postId, text) => {
+    setComments((prevComments) => ({
+      ...prevComments,
+      [postId]: text,
+    }));
+  };
+
   const handleCommentSubmit = async (postId) => {
+    const commentText = comments[postId];
     if (!commentText.trim()) return;
 
     try {
-      // Asegúrate de que postId sea una cadena válida antes de enviarlo
-      const validPostId = postId ? postId : selectedPost?._id;
-      console.log("valid ",validPostId);
-      console.log("Id",postId);
-      if (!validPostId) {
-        console.error("ID de publicación no válido");
-        return;
-      }
-
-      const response = await fetch(`http://localhost:3001/api/posts/${validPostId}/comments`, {
+      const response = await fetch(`http://localhost:3001/api/posts/${postId}/comments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -128,7 +126,7 @@ const FeedPage = () => {
         const newComment = await response.json();
 
         // Actualizar el comentario en el modal de la publicación
-        if (selectedPost && selectedPost._id === validPostId) {
+        if (selectedPost && selectedPost._id === postId) {
           setSelectedPost((prevPost) => ({
             ...prevPost,
             comments: [...prevPost.comments, newComment],
@@ -138,13 +136,16 @@ const FeedPage = () => {
         // Actualizar la lista de publicaciones en el feed
         setPosts((prevPosts) =>
           prevPosts.map((post) =>
-            post._id === validPostId
+            post._id === postId
               ? { ...post, comments: [...post.comments, newComment] }
               : post
           )
         );
 
-        setCommentText(""); // Limpiar el campo de comentario
+        setComments((prevComments) => ({
+          ...prevComments,
+          [postId]: "", // Limpiar el campo de comentario después de enviar
+        }));
       } else {
         console.error("Error al crear el comentario");
       }
@@ -156,9 +157,8 @@ const FeedPage = () => {
   const handlePostComment = (event, post) => {
     if (event.key === "Enter") {
       handleCommentSubmit(post._id);
-    } 
-      
-  }
+    }
+  };
 
   return (
     <div className="feed-container">
@@ -218,11 +218,9 @@ const FeedPage = () => {
                 <input
                   type="text"
                   placeholder="Escribe un comentario..."
-                  value={commentText}
-                  onChange={(e) => setCommentText(e.target.value)}
-                  onKeyDown={(e) => {
-                    handlePostComment (e, post)
-                  }}
+                  value={comments[post._id] || ""}
+                  onChange={(e) => handleCommentChange(post._id, e.target.value)}
+                  onKeyDown={(e) => handlePostComment(e, post)}
                   className="comment-input"
                 />
               </div>
