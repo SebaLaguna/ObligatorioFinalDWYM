@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Publicacion from "../components/Publicacion";
-import Modal from "../components/Modal";
+import Publicacion from "../../components/Publicacion/Publicacion";
+import Modal from "../../components/Modal/Modal";
+import { fetchPosts, fetchUserProfile, handleCommentSubmit, handleCommentChange } from "./FeedController";
+import Button from "../../components/Button/Button";  
+import Input from "../../components/Input/Input";  
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import "../styles/FeedPage.css";
+import "../../styles/FeedPage.css";
 
 const timeSince = (date) => {
   const seconds = Math.floor((new Date() - new Date(date)) / 1000);
@@ -30,53 +33,14 @@ const FeedPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
   const [userProfile, setUserProfile] = useState(null);
-  const [comments, setComments] = useState({}); // Estado para los comentarios de cada post
+  const [comments, setComments] = useState({}); 
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
 
-  const fetchPosts = async () => {
-    try {
-      const response = await fetch("http://localhost:3001/api/posts/feed", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Error al cargar el feed");
-      }
-
-      const data = await response.json();
-      const sortedPosts = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-      setPosts(sortedPosts);
-    } catch (error) {
-      console.error("Error al cargar el feed", error);
-    }
-  };
-
-  const fetchUserProfile = async () => {
-    try {
-      const response = await fetch(`http://localhost:3001/api/user/profile/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Error al cargar el perfil del usuario");
-      }
-
-      const userData = await response.json();
-      setUserProfile(userData);
-    } catch (error) {
-      console.error("Error al cargar el perfil del usuario", error);
-    }
-  };
-
   useEffect(() => {
-    fetchPosts();
-    fetchUserProfile();
-  }, []);
+    fetchPosts(setPosts);
+    fetchUserProfile(userId, setUserProfile);
+  }, [userId]);
 
   useEffect(() => {
     if (selectedPost) {
@@ -101,78 +65,25 @@ const FeedPage = () => {
     }
   };
 
-  const handleCommentChange = (postId, text) => {
-    setComments((prevComments) => ({
-      ...prevComments,
-      [postId]: text,
-    }));
-  };
-
-  const handleCommentSubmit = async (postId) => {
-    const commentText = comments[postId];
-    if (!commentText.trim()) return;
-
-    try {
-      const response = await fetch(`http://localhost:3001/api/posts/${postId}/comments`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({ content: commentText }),
-      });
-
-      if (response.ok) {
-        const newComment = await response.json();
-
-        // Actualizar el comentario en el modal de la publicación
-        if (selectedPost && selectedPost._id === postId) {
-          setSelectedPost((prevPost) => ({
-            ...prevPost,
-            comments: [...prevPost.comments, newComment],
-          }));
-        }
-
-        // Actualizar la lista de publicaciones en el feed
-        setPosts((prevPosts) =>
-          prevPosts.map((post) =>
-            post._id === postId
-              ? { ...post, comments: [...post.comments, newComment] }
-              : post
-          )
-        );
-
-        setComments((prevComments) => ({
-          ...prevComments,
-          [postId]: "", // Limpiar el campo de comentario después de enviar
-        }));
-      } else {
-        console.error("Error al crear el comentario");
-      }
-    } catch (error) {
-      console.error("Error al enviar el comentario", error);
-    }
-  };
-
   const handlePostComment = (event, post) => {
     if (event.key === "Enter") {
-      handleCommentSubmit(post._id);
+      handleCommentSubmit(post._id, comments[post._id], setComments, setPosts, selectedPost, setSelectedPost);
     }
   };
 
   return (
     <div className="feed-container">
       <div className="sidebar">
-        <button className="sidebar-button">
+        <Button className="sidebar-button" onClick={() => navigate('/feed')}>
           <i className="fas fa-home"></i> Inicio
-        </button>
-        <button className="sidebar-button">
+        </Button>
+        <Button className="sidebar-button">
           <i className="fas fa-bell"></i> Notificaciones
-        </button>
-        <button className="sidebar-button">
+        </Button>
+        <Button className="sidebar-button">
           <i className="fas fa-plus-square"></i> Crear
-        </button>
-        <button className="sidebar-button" onClick={handleProfileClick}>
+        </Button>
+        <Button className="sidebar-button" onClick={handleProfileClick}>
           {userProfile?.user.profilePicture ? (
             <img
               src={userProfile.user.profilePicture}
@@ -183,7 +94,7 @@ const FeedPage = () => {
             <i className="fas fa-user"></i>
           )}
           Perfil
-        </button>
+        </Button>
       </div>
       <div className="feed">
         <div className="posts-grid">
@@ -215,11 +126,11 @@ const FeedPage = () => {
                 <p>{post.likes.length} likes</p>
               </div>
               <div className="post-comment-section">
-                <input
+                <Input
                   type="text"
                   placeholder="Escribe un comentario..."
                   value={comments[post._id] || ""}
-                  onChange={(e) => handleCommentChange(post._id, e.target.value)}
+                  onChange={(e) => handleCommentChange(post._id, e.target.value, setComments)}
                   onKeyDown={(e) => handlePostComment(e, post)}
                   className="comment-input"
                 />
@@ -228,7 +139,9 @@ const FeedPage = () => {
           ))}
         </div>
         {showModal && selectedPost && (
-          <Modal children={<Publicacion selectedPost={selectedPost} />} onClose={closeModal} />
+          <Modal onClose={closeModal}>
+            <Publicacion selectedPost={selectedPost} />
+          </Modal>
         )}
       </div>
     </div>
