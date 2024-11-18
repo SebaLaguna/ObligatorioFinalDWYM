@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "../styles/Comment.css";
+import "../../styles/Comment.css";
 
 const Comment = ({ id }) => {
   const [comment, setComment] = useState({});
@@ -7,6 +7,7 @@ const Comment = ({ id }) => {
 
   const fetchComment = async () => {
     try {
+      
       const response = await fetch(`http://localhost:3001/api/posts/comments/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

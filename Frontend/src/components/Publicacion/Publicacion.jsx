@@ -1,6 +1,6 @@
-import "../styles/FeedPage.css";
+import "../../styles/FeedPage.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import Comment from "./Comment";
+import Comment from "../Comment/Comment";
 
 const darLike = async(post) => {
   try{
