@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import "../../styles/ProfilePage.css";
 import Modal from "../../components/Modal/Modal";
 import Publicacion from "../../components/Publicacion/Publicacion";
 import { fetchUserProfile, updateUserProfile } from "./ProfileController"; 
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button"; 
+import "../../styles/ProfilePage.css";
 
 const ProfilePage = () => {
   const { id } = useParams();

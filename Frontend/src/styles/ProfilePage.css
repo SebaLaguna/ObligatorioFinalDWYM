@@ -1,26 +1,123 @@
+.sidebar {
+  width: 240px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  border-right: 1px solid #dbdbdb;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-button {
+  width: 80%;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  background-color: transparent;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  color: #262626;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar-button i {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.sidebar-button:hover {
+  background-color: #f1f1f1;
+  color: #0095f6;
+}
 
 
-.profile-page {
-    display: flex;
-  }
-  
-  .sidebar {
-    width: 200px;
-    height: 100vh;
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 2rem;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    left: 0;
-    top: 0;
-  }
-  
-  .profile-content {
-    margin-left: 200px; /* Mismo ancho que la sidebar */
-    padding: 20px;
-    width: calc(100% - 200px);
-  }
-  
+.profile-content {
+  margin-left: 240px;
+  flex-grow: 1;
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Encabezado del perfil */
+.profile-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.profile-picture-large {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px solid #8dc26f;
+  object-fit: cover;
+  margin-right: 20px;
+  background-color: #fff;
+}
+
+.profile-username {
+  font-size: 2rem; 
+  font-weight: bold;
+  font-family: 'Arial', sans-serif; 
+  color: #262626;
+}
+
+
+.user-posts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 900px;
+}
+
+.post-card {
+  width: 100%; 
+  overflow: hidden;
+  background-color: #fff;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.post-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-content {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.modal h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #262626;
+}
+
+.modal button {
+  margin-top: 15px;
+}
