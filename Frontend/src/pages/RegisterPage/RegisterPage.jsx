@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Input from "../../components/Input/Input"; 
 import Button from "../../components/Button/Button"; 
 import CustomLink from "../../components/CustomLink/CustomLink"; 
-import { registerUser } from "./RegisterController"; 
+import { registerUser } from "./RegisterController";
+import "../../styles/RegisterPage.css";
 
 const RegisterPage = () => {
   const [username, setUsername] = useState("");
@@ -26,10 +27,11 @@ const RegisterPage = () => {
 
 
   return (
-    <div>
-      <h2>Register</h2>
+    <div className="register-page">
+      <div className="form">
+      <h2>Create account</h2>
       {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleRegister}>
+      <form onSubmit={handleRegister} className="register-form">
         <Input
           type="text"
           placeholder="Username"
@@ -51,14 +53,15 @@ const RegisterPage = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <Button type="submit">Register</Button>
+        <Button type="submit" className= "register-button">Register</Button>
       </form>
-      <p>
+      <p className="message">
         ¿Ya tienes una cuenta?{" "}
         <CustomLink to="/" style={{ padding: "0.5rem 1rem" }}>
           Inicia sesión
         </CustomLink>
       </p>
+      </div>
     </div>
   );
 };

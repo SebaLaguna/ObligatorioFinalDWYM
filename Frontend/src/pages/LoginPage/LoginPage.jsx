@@ -4,6 +4,7 @@ import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button"; 
 import CustomLink from "../../components/CustomLink/CustomLink";
 import { loginUser } from "./LoginController";
+import "../../styles/LoginPage.css";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -17,10 +18,11 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div className="login-page">
+      <div className="form">
+      <h2>Fakestagram</h2>
       {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleLogin} className="login-form">
         <Input
           type="email"
           placeholder="Email"
@@ -35,14 +37,15 @@ const LoginPage = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <Button type="submit">Login</Button>
+        <Button type="submit" className= "login-button">Login</Button>
       </form>
-      <p>
+      <p className="message">
         ¿No tienes una cuenta?{" "}
         <CustomLink to="/register" style={{ padding: "0.5rem 1rem" }}>
           Regístrate aquí
         </CustomLink>
       </p>
+      </div>
     </div>
   );
 };

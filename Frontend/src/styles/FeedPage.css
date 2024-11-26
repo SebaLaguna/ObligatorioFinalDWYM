@@ -1,17 +1,10 @@
-/* General */
-.feed-page {
-  display: flex;
-  justify-content: center;
-  font-family: Arial, sans-serif;
-}
-
-.sidebar {
-  width: 200px;
+.feed-container .sidebar {
+  width: 240px; 
   height: 100vh;
-  background-color: #fff;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  background-color: #fff;
+  align-items: center; /* Centra los botones horizontalmente */
   padding-top: 2rem;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   position: fixed;
@@ -21,41 +14,46 @@
 
 .sidebar-button {
   width: 80%;
-  padding: 1rem;
+  padding: 0.8rem 1rem;
   margin-bottom: 1rem;
   background-color: transparent;
-  color: #333;
   border: none;
   border-radius: 8px;
   font-size: 1rem;
   cursor: pointer;
   display: flex;
   align-items: center;
-  transition: color 0.3s;
+  text-align: left;
+  transition: color 0.3s, background-color 0.3s;
 }
 
 .sidebar-profile-picture {
-  width: 20px;
-  height: 20px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  margin-right: 8px;
+  margin-right: 12px;
+  object-fit: cover;
+  border: 2px solid #8dc26f;
 }
 
 .sidebar-button i {
-  margin-right: 8px;
+  font-size: 1.2rem;
+  margin-right: 12px;
 }
 
 .sidebar-button:hover {
-  color: #555;
+  background: linear-gradient(90deg, rgba(141, 194, 111, 1) 0%, rgba(118, 184, 82, 1) 50%);
+  color: #262626;
 }
 
-
 .feed {
-  flex-grow: 1; 
-  margin-left: 200px;
+  flex-grow: 1;
+  margin-left: 240px; 
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   padding-top: 20px;
+  padding-bottom: 20px;
+  overflow-y: auto;
 }
 
 .posts-grid {
@@ -67,26 +65,30 @@
 }
 
 .post-card {
-  background-color: white;
+  background-color: #fff;
   border: 1px solid #dbdbdb;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
   width: 100%;
   max-width: 500px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
 }
 
 .post-header {
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding: 15px;
+  border-bottom: 1px solid #dbdbdb;
+    background-color: rgb(208, 208, 208);
 }
 
 .profile-picture {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
   margin-right: 15px;
+  border: 2px solid #8dc26f; 
 }
 
 .username {
@@ -96,6 +98,7 @@
 
 .post-image-container {
   width: 100%;
+  position: relative;
 }
 
 .post-image {
@@ -104,18 +107,59 @@
 }
 
 .post-caption {
-  padding: 10px;
+  padding: 10px 15px;
   font-size: 14px;
+  line-height: 1.5;
+  color: #262626;
 }
 
-.post-likes, .post-comments {
-  padding: 0 10px 10px;
+.post-likes {
+  padding: 10px 15px;
   font-size: 14px;
-  color: #555;
+  font-weight: bold;
+}
+
+.post-comments {
+  padding: 0 15px 10px;
+  font-size: 14px;
+  color: #999;
 }
 
 .post-time {
   font-size: 12px;
   color: #999;
-  margin-left: 10px;
+  padding: 10px 15px;
+}
+
+.post-comment-section {
+  padding: 10px 15px;
+  border-top: 1px solid #dbdbdb;
+}
+
+.comment-input {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.comment-input:focus {
+  border-color: #0095f6;
+}
+
+/* Scroll personalizado */
+.feed::-webkit-scrollbar {
+  width: 8px;
+}
+
+.feed::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+.feed::-webkit-scrollbar-thumb:hover {
+  background-color: #bbb;
 }

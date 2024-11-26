@@ -4,6 +4,7 @@ import RegisterPage from './pages/RegisterPage/RegisterPage';
 import FeedPage from './pages/FeedPage/FeedPage';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
+import '../src/styles/App.css';
 
 function App() {
   return (
