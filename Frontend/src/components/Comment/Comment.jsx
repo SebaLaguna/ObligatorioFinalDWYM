@@ -8,7 +8,7 @@ const Comment = ({ id }) => {
   const fetchComment = async () => {
     try {
       
-      const response = await fetch(`http://localhost:3001/api/posts/comments/${id}`, {
+      const response = await fetch(`http://localhost:3001/api/posts/comments/${id._id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -20,7 +20,8 @@ const Comment = ({ id }) => {
 
       const data = await response.json();
       setComment(data);
-      fetchUserName(data.user._id);
+      console.log(data);
+      fetchUserName(data.user.id);
     } catch (error) {
       console.error("Error al cargar el comentario", error);
     }
