@@ -67,6 +67,7 @@ const FeedPage = () => {
 
   const handlePostComment = (event, post) => {
     if (event.key === "Enter") {
+      console.log("Aprete el enter");
       handleCommentSubmit(post._id, comments[post._id], setComments, setPosts, selectedPost, setSelectedPost);
     }
   };

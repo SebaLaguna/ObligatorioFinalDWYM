@@ -5,6 +5,7 @@ const Input = ({
   type = "text",
   value,
   onChange,
+  onKeyDown,
   placeholder,
   required = false,
   className,
@@ -16,6 +17,7 @@ const Input = ({
         type={type}
         value={value}
         onChange={onChange}
+        onKeyDown={onKeyDown}
         placeholder={placeholder}
         required={required}
         className={className}
