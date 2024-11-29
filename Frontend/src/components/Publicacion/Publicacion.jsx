@@ -1,10 +1,8 @@
 import "../../styles/FeedPage.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Comment from "../Comment/Comment";
-import { darLike,quitarLike } from "../Like/Like";
 
 const Publicacion = ({selectedPost}) => {
-
 
     return(
             <div>
@@ -24,10 +22,6 @@ const Publicacion = ({selectedPost}) => {
             </div>
             <div className="modal-likes">
               <p>{selectedPost.likes.length} likes</p>
-            </div>
-            <div>
-              <button onClick={()=> darLike(selectedPost)}> Dar Like </button>
-              <button onClick={()=> quitarLike(selectedPost)}> Quitar Like </button>
             </div>
            </div>
     );
