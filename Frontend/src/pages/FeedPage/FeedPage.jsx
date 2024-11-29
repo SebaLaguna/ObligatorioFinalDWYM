@@ -7,6 +7,8 @@ import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";  
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../../styles/FeedPage.css";
+import { darLike,quitarLike } from "../../components/Like/Like";
+import { BASE_URL } from "../../routes";
 
 const timeSince = (date) => {
   const seconds = Math.floor((new Date() - new Date(date)) / 1000);
@@ -67,8 +69,15 @@ const FeedPage = () => {
 
   const handlePostComment = (event, post) => {
     if (event.key === "Enter") {
-      console.log("Aprete el enter");
       handleCommentSubmit(post._id, comments[post._id], setComments, setPosts, selectedPost, setSelectedPost);
+    }
+  };
+
+  const toggleLike = async (post) => {
+    if (post.likes.includes(userId)) {
+      await quitarLike(post, setPosts);
+    } else {
+      await darLike(post, setPosts);
     }
   };
 
@@ -87,7 +96,7 @@ const FeedPage = () => {
         <Button className="sidebar-button" onClick={handleProfileClick}>
           {userProfile?.user.profilePicture ? (
             <img
-              src={userProfile.user.profilePicture}
+              src={BASE_URL+userProfile.user.profilePicture}
               alt="Profile"
               className="sidebar-profile-picture"
             />
@@ -114,7 +123,7 @@ const FeedPage = () => {
               </div>
               <div className="post-image-container">
                 <img
-                  src={post.imageUrl || "/default-post.png"}
+                  src={BASE_URL+post.imageUrl || "/default-post.png"}
                   alt="Post"
                   className="post-image"
                   onClick={() => openModal(post)}
@@ -125,6 +134,12 @@ const FeedPage = () => {
               </div>
               <div className="post-likes">
                 <p>{post.likes.length} likes</p>
+                <button
+                  onClick={() => toggleLike(post)}
+                  className="like-button"
+                >
+                  {post.likes.includes(userId) ? "Quitar Like" : "Dar Like"}
+                </button>
               </div>
               <div className="post-comment-section">
                 <Input
@@ -141,7 +156,7 @@ const FeedPage = () => {
         </div>
         {showModal && selectedPost && (
           <Modal onClose={closeModal}>
-            <Publicacion selectedPost={selectedPost} />
+            <Publicacion selectedPost={selectedPost} setPosts={setPosts}/>
           </Modal>
         )}
       </div>

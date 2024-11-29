@@ -46,6 +46,254 @@
   color: #262626;
 }
 
+.feed {
+  flex-grow: 1;
+  margin-left: 240px;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.posts-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.post-card {
+  background-color: #fff;
+  border: 1px solid #dbdbdb;
+  border-radius: 10px;
+  width: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #dbdbdb;
+  background-color: #fff;
+}
+
+.profile-picture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 15px;
+  border: 2px solid #8dc26f;
+}
+
+.username {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.post-image-container {
+  width: 100%;
+  position: relative;
+}
+
+.post-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  background-color: #fff;
+  border: 1px solid #dbdbdb;
+}
+
+.post-caption {
+  padding-left: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #262626;
+  margin-bottom: 5px;
+}
+
+.post-likes {
+  padding-left: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.post-comments {
+  font-size: 14px;
+  color: #999;
+  margin-bottom: 10px;
+}
+
+.post-time {
+  font-size: 12px;
+  color: #999;
+  padding: 10px 15px;
+}
+
+.post-comment-section {
+  padding-left: 1px;
+  border-top: 1px solid #dbdbdb;
+}
+
+.comment-input {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.comment-input:focus {
+  border-color: #0095f6;
+}
+
+.feed::-webkit-scrollbar {
+  width: 8px;
+}
+
+.feed::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+.feed::-webkit-scrollbar-thumb:hover {
+  background-color: #bbb;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .feed-container .sidebar {
+    width: 200px;
+  }
+
+  .feed {
+    margin-left: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .feed-container .sidebar {
+    width: 180px;
+  }
+
+  .feed {
+    margin-left: 180px;
+    padding: 10px;
+  }
+
+  .sidebar-button {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+
+  .sidebar-profile-picture {
+    width: 24px;
+    height: 24px;
+  }
+
+  .post-card {
+    border-radius: 8px;
+  }
+
+  .post-header {
+    padding: 10px;
+  }
+
+  .profile-picture {
+    width: 32px;
+    height: 32px;
+  }
+
+  .post-caption,
+  .post-likes,
+  .post-comments,
+  .post-time {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .feed-container .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 1rem 0;
+    box-shadow: none;
+  }
+
+  .feed {
+    margin-left: 0;
+  }
+
+  .sidebar-button {
+    width: auto;
+    margin-bottom: 0;
+    font-size: 0.8rem;
+  }
+
+  .posts-grid {
+    max-width: 100%;
+  }
+}
+
+
+/* .feed-container .sidebar {
+  width: 240px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  align-items: center;
+  padding-top: 2rem;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.sidebar-button {
+  width: 80%;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1rem;
+  background-color: transparent;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  transition: color 0.3s, background-color 0.3s;
+}
+
+.sidebar-profile-picture {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  margin-right: 12px;
+  object-fit: cover;
+  border: 2px solid #8dc26f;
+}
+
+.sidebar-button i {
+  font-size: 1.2rem;
+  margin-right: 12px;
+}
+
+.sidebar-button:hover {
+  background: linear-gradient(90deg, rgba(141, 194, 111, 1) 0%, rgba(118, 184, 82, 1) 50%);
+  color: #262626;
+}
+
 
 .feed {
   flex-grow: 1;
@@ -184,4 +432,4 @@
 
 .comment-input:focus {
   background-color: #f9f9f9;
-}
+} */

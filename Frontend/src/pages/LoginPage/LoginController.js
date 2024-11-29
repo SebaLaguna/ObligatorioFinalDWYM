@@ -1,8 +1,10 @@
+import { BASE_URL,AUTH_URL,LOGIN_URL } from "../../routes";
+
 export const loginUser = async (email, password, setError, navigate) => {
     setError(null);
   
     try {
-      const response = await fetch("http://localhost:3001/api/auth/login", {
+      const response = await fetch(BASE_URL+AUTH_URL+LOGIN_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
