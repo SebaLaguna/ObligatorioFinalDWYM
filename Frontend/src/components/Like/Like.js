@@ -1,6 +1,8 @@
+import { BASE_URL,POST_URL,LIKE_URL } from "../../routes";
+
 export const darLike = async(post,setPosts) => {
     try{
-      const response = await fetch(`http://localhost:3001/api/posts/${post._id}/like`,{
+      const response = await fetch(BASE_URL+POST_URL+post._id+LIKE_URL,{
         method: 'POST',
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -20,7 +22,7 @@ export const darLike = async(post,setPosts) => {
   
   export const quitarLike = async(post,setPosts) => {
     try{
-      const response = await fetch(`http://localhost:3001/api/posts/${post._id}/like`,{
+      const response = await fetch(BASE_URL+POST_URL+post._id+LIKE_URL,{
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

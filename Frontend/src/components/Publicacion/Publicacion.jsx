@@ -1,13 +1,14 @@
 import "../../styles/FeedPage.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Comment from "../Comment/Comment";
+import { BASE_URL } from "../../routes";
 
 const Publicacion = ({selectedPost}) => {
 
     return(
             <div>
             <img
-              src={selectedPost.imageUrl}
+              src={BASE_URL+selectedPost.imageUrl}
               alt="Post"
               className="modal-post-image"
             />

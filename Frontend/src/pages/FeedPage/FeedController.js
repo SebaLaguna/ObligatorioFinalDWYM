@@ -1,6 +1,8 @@
+import { BASE_URL, POST_URL,FEED_URL, USER_URL, PROFILE_URL, SUMMIT_COMMENT_URL } from "../../routes";
+
 export const fetchPosts = async (setPosts) => {
     try {
-      const response = await fetch("http://localhost:3001/api/posts/feed", {
+      const response = await fetch(BASE_URL+POST_URL+FEED_URL, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -20,7 +22,7 @@ export const fetchPosts = async (setPosts) => {
   
   export const fetchUserProfile = async (userId, setUserProfile) => {
     try {
-      const response = await fetch(`http://localhost:3001/api/user/profile/${userId}`, {
+      const response = await fetch(BASE_URL+USER_URL+PROFILE_URL+userId, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -41,7 +43,7 @@ export const fetchPosts = async (setPosts) => {
     if (!commentText.trim()) return;
   
     try {
-      const response = await fetch(`http://localhost:3001/api/posts/${postId}/comments`, {
+      const response = await fetch(BASE_URL+POST_URL+postId+SUMMIT_COMMENT_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -52,7 +54,6 @@ export const fetchPosts = async (setPosts) => {
   
       if (response.ok) {
         const newComment = await response.json();
-  
         if (selectedPost && selectedPost._id === postId) {
           setSelectedPost((prevPost) => ({
             ...prevPost,
@@ -72,6 +73,7 @@ export const fetchPosts = async (setPosts) => {
           ...prevComments,
           [postId]: "", 
         }));
+        await fetchPosts(setPosts);
       } else {
         console.error("Error al crear el comentario");
       }

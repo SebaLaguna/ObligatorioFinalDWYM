@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { BASE_URL,POST_URL,COMMENTS_URL,USER_URL,PROFILE_URL } from "../../routes";
 
 const Comment = ({ id }) => {
   const [comment, setComment] = useState({});
@@ -8,7 +8,7 @@ const Comment = ({ id }) => {
   const fetchComment = async () => {
     try {
       
-      const response = await fetch(`http://localhost:3001/api/posts/comments/${id._id}`, {
+      const response = await fetch(BASE_URL+POST_URL+COMMENTS_URL+id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -21,7 +21,7 @@ const Comment = ({ id }) => {
       const data = await response.json();
       setComment(data);
       console.log(data);
-      fetchUserName(data.user.id);
+      fetchUserName(data.user._id);
     } catch (error) {
       console.error("Error al cargar el comentario", error);
     }
@@ -29,7 +29,8 @@ const Comment = ({ id }) => {
 
   const fetchUserName = async (userId) => {
     try {
-      const response = await fetch(`http://localhost:3001/api/user/profile/${userId}`, {
+      console.log(userId);
+      const response = await fetch(BASE_URL+USER_URL+PROFILE_URL+userId, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

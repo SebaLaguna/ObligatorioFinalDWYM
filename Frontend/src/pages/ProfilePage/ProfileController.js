@@ -1,6 +1,8 @@
+import { BASE_URL,USER_URL,PROFILE_URL,EDIT_PROFILE_URL } from "../../routes";
+
 export const fetchUserProfile = async (id, setUserData) => {
     try {
-      const response = await fetch(`http://localhost:3001/api/user/profile/${id}`, {
+      const response = await fetch(BASE_URL+USER_URL+PROFILE_URL+id, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
   
@@ -17,7 +19,7 @@ export const fetchUserProfile = async (id, setUserData) => {
   
   export const updateUserProfile = async (userData, setUserData, handleModalClose) => {
     try {
-      const response = await fetch(`http://localhost:3001/api/user/profile/edit`, {
+      const response = await fetch(BASE_URL+USER_URL+PROFILE_URL+EDIT_PROFILE_URL, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

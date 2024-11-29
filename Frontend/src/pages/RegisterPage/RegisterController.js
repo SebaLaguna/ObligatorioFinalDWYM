@@ -1,6 +1,8 @@
+import { BASE_URL,AUTH_URL,REGISTER_URL } from "../../routes";
+
 export const registerUser = async (username, email, password, navigate) => {
     try {
-      const response = await fetch("http://localhost:3001/api/auth/register", {
+      const response = await fetch(BASE_URL+AUTH_URL+REGISTER_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

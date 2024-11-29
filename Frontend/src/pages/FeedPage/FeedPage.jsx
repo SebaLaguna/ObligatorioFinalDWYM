@@ -8,6 +8,7 @@ import Input from "../../components/Input/Input";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../../styles/FeedPage.css";
 import { darLike,quitarLike } from "../../components/Like/Like";
+import { BASE_URL } from "../../routes";
 
 const timeSince = (date) => {
   const seconds = Math.floor((new Date() - new Date(date)) / 1000);
@@ -95,7 +96,7 @@ const FeedPage = () => {
         <Button className="sidebar-button" onClick={handleProfileClick}>
           {userProfile?.user.profilePicture ? (
             <img
-              src={userProfile.user.profilePicture}
+              src={BASE_URL+userProfile.user.profilePicture}
               alt="Profile"
               className="sidebar-profile-picture"
             />
@@ -122,7 +123,7 @@ const FeedPage = () => {
               </div>
               <div className="post-image-container">
                 <img
-                  src={post.imageUrl || "/default-post.png"}
+                  src={BASE_URL+post.imageUrl || "/default-post.png"}
                   alt="Post"
                   className="post-image"
                   onClick={() => openModal(post)}
